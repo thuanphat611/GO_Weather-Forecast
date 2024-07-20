@@ -1,0 +1,67 @@
+.four-day {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 30px;
+
+  &-title {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    padding: none;
+  }
+
+  &-item {
+    flex: 1;
+    display: block;
+    padding: 10px;
+    background-color: var(--light-primary-color);
+    border-radius: 20px;
+    color: var(--white-color);
+  }
+
+  &-date {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  &-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  &-text {
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  &-text + &-text {
+    margin-top: 10px;
+  }
+
+  &-more {
+    align-self: center;
+    width: 120px;
+    margin-top: 30px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--light-primary-color);
+    }
+  }
+}
