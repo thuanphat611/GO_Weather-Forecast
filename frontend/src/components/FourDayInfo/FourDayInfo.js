@@ -9,6 +9,7 @@ function FourDayInfo({ data }) {
       <h3 className={cx('four-day-title')}>4-Day Forecast</h3>
       <ul className={cx('four-day-list')}>
         {
+          //Check if data is loaded and display it
           data ?
           <li className={cx('four-day-item')}>
             <h4 className={cx('four-day-date')}>{data.date}</h4>
@@ -22,6 +23,7 @@ function FourDayInfo({ data }) {
         }
       </ul>
       {
+        //Hidden when there's no data
         data ?
         <button className={cx('four-day-more')}>Load more</button>
         :

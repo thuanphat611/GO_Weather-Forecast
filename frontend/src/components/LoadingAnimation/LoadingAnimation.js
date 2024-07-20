@@ -7,7 +7,8 @@ const cx = classNames.bind(styles);
 
 function LoadingAnimation({ isLoading }) {
   return (
-    <div className={cx('overlay', {'no-display': !isLoading})}>
+    // if isLoading = true, this component is displayed
+    <div className={cx('overlay', {'display': isLoading})}>
       <img className={cx('gif')} src={loading} alt='loading'/>
       <h3 className={cx('text')}>Loading, please wait...</h3>
     </div>

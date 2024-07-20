@@ -1,5 +1,9 @@
-.overlay {
+.display {
   display: flex;
+}
+
+.overlay {
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -10,6 +14,7 @@
   left: 0;
   right: 0;
   z-index: 10;
+  user-select: none;
 }
 
 .gif {
@@ -20,8 +25,4 @@
   color: var(--black-color);
   font-size: 2rem;
   font-weight: 400;
-}
-
-.no-display {
-  display: none!important;
 }
