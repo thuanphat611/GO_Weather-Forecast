@@ -204,6 +204,7 @@
     left: 0;
     right: 0;
     z-index: 5;
+    animation: overlayAnimation 0.3s ease-in;
   }
 
   &-modal {
@@ -310,6 +311,14 @@
         background-color: var(--light-primary-color);
       }
     }
+  }
+}
+
+@keyframes overlayAnimation {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
   }
 }
 
