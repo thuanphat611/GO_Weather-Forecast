@@ -143,12 +143,18 @@
   }
 
   &-location {
-    width: 100%;
+    width: calc(100% - 100px);
     margin-top: 20px;
     text-align: center;
     text-wrap: wrap;
     font-size: 3.5rem;
     font-weight: 400;
+    display: -webkit-box;       
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;       
+    overflow: hidden;           
+    text-overflow: ellipsis;     
+    white-space: normal;     
   }
 }
 
