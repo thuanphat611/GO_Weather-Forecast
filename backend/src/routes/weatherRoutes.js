@@ -13,6 +13,7 @@ router.get('/get-data', async (req, res) => {
   }
 
   const result = await getData(location);
+  console.log(result);
   if (result.success) {
     res.status(200).json({...result});
   } else {

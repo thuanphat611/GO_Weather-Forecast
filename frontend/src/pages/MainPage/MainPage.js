@@ -2,20 +2,39 @@ import classNames from 'classnames/bind';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './MainPage.module.scss';
 
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import FourDayInfo from '../../components/FourDayInfo/FourDayInfo';
 import EmailSubScription from '../../components/EmailSubscription/EmailSubscription';
+import { getWeatherData } from '../../api/weatherApi';
 
 const cx = classNames.bind(styles);
 
 function MainPage() {
+  const [data, setData] = useState(undefined);
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true while fetching data from the server to show the loading animation
   const [historyDisplay, setHistoryDisplay] = useState(false);
  
+  useEffect(() => {
+    const getData = async () => {
+      const defaultLocation = 'London';
+
+      setIsLoading(true);
+      
+      const result = await getWeatherData(defaultLocation);
+      console.log(result)
+      setIsLoading(false);
+
+      if (result?.data.success) {
+        setData(result.data);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <div className={cx('content')}>
       <div className={cx('header')}>
@@ -38,18 +57,18 @@ function MainPage() {
           </div>
 
           <div className={cx('weather')}>
-            <img className={cx('weather-icon')} src='https://cdn.weatherapi.com/weather/64x64/day/116.png' alt=''/>
+            <img className={cx('weather-icon')} src={'https:' + data?.current.icon} alt=''/>
             <div className={cx('weather-temp')}>
-              <h1 className={cx('weather-temp-degree')}>31</h1>
+              <h1 className={cx('weather-temp-degree')}>{data?.current.temp}</h1>
               <h4 className={cx('weather-temp-unit')}>C</h4>
             </div>
-            <h4 className={cx('weather-info')}>Partly cloudy</h4>
+            <h4 className={cx('weather-info')}>{data?.current.condition}</h4>
             <span className={cx('seperate')}></span>
-            <h3 className={cx('weather-date')}>2024-07-20</h3>
-            <h4 className={cx('weather-text')}>Temperature: 31&deg;C</h4>
-            <h4 className={cx('weather-text')}>Wind: 31M/S</h4>
-            <h4 className={cx('weather-text')}>Humidity: 76%</h4>
-            <h1 className={cx('weather-location')}>London</h1>
+            <h3 className={cx('weather-date')}>{data?.current.date}</h3>
+            <h4 className={cx('weather-text')}>Temperature: {data?.current.temp}&deg;C</h4>
+            <h4 className={cx('weather-text')}>Wind: {data?.current.wind} mph</h4>
+            <h4 className={cx('weather-text')}>Humidity: {data?.current.humid}%</h4>
+            <h1 className={cx('weather-location')}>{data?.name}</h1>
           </div>
 
           <button className={cx('history')}>
@@ -92,7 +111,7 @@ function MainPage() {
         </div>
 
         <div className={cx('options')}>
-          <FourDayInfo />
+          <FourDayInfo data={data?.nextDays}/>
           <EmailSubScription />
         </div>
       </div>
