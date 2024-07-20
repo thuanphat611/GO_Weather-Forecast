@@ -1,0 +1,30 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+:root {
+  --primary-color: rgb(83, 114, 240);
+  --light-primary-color: rgb(116, 140, 241);
+  --white-color: rgb(255, 255, 255);
+  --black-color: rgb(22, 22, 22);
+  --gray-color: rgb(239, 239, 239);
+  --green-color: rgb(0, 163, 16);
+  --red-color: rgb(255, 0, 0);
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: 1.6rem;
+  text-rendering: optimizeSpeed;
+}
