@@ -22,12 +22,17 @@
   &-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
+    transition: all 0.3s ease-in;
   }
 
   &-title {
     font-size: 2rem;
     font-weight: 600;
+  }
+
+  &-form {
+    margin-top: 5px;
   }
 
   &-input {
@@ -64,5 +69,22 @@
       cursor: pointer;
       background-color: var(--light-primary-color);
     }
+  }
+}
+
+.toggle-btn {
+  width: 250px;
+  padding: 5px;
+  padding-left: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: left;
+  border: none;
+  background: transparent;
+  
+  &:hover {
+    cursor: pointer;
+    color: var(--light-primary-color);
   }
 }

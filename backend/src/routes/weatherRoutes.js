@@ -9,7 +9,7 @@ router.get('/get-data', async (req, res) => {
   const { location } = req.query;
 
   if (!location) {
-    return res.status(400).json({success: false, error: 'Location is missing.'});
+    return res.status(400).json({success: false, message: 'Location is missing.'});
   }
 
   const result = await getData(location);

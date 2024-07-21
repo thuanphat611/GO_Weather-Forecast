@@ -9,6 +9,32 @@ const getWeatherData = async (location) => {
   return result;
 };
 
+const postRegisterEmail = async (email) => {
+  const url = `${backendUrl}/subscription/register`;
+
+  try {
+    const response = await axios.post(url, { email });
+    
+    return {success: true, message: response?.data?.message};
+  } catch (err) {
+    return {success: false, message: err.response?.data?.message || 'Some error occured'};
+  }
+}
+
+const postUnsubscribeEmail = async (email) => {
+  const url = `${backendUrl}/subscription/unsubscribe`;
+
+  try {
+    const response = await axios.post(url, { email });
+
+    return {success: true, message: response?.data?.message};
+  } catch (err) {
+    return {success: false, message: err.response?.data?.message || 'Some error occured'};
+  }
+}
+
 export {
-  getWeatherData
+  getWeatherData,
+  postRegisterEmail,
+  postUnsubscribeEmail
 };
