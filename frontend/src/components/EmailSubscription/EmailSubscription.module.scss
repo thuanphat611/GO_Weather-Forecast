@@ -1,3 +1,5 @@
+@import '../../components/GlobalStyles/responsive.scss';
+
 .subscription {
   display: flex;
   margin-top: 20px; 
@@ -5,6 +7,11 @@
   padding: 10px;
   color: var(--black-color);
   border-radius: 10px;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+  }
 
   &-img {
     display: flex;
@@ -17,12 +24,25 @@
     background: linear-gradient(45deg, rgb(83, 114, 240), rgb(116, 140, 241, 0.5));
     border-radius: 10px;
     font-size: 8rem;
+
+    @include small-desktop {
+      margin-right: 10px;
+    }
+
+    @include mobile {
+      height: 80px;
+      min-width: unset;
+      width: 80px;
+      margin: 0;
+      margin-bottom: 10px;
+      font-size: 3.5rem;
+    }
   }
 
   &-content {
     display: flex;
+    width: 100%;
     flex-direction: column;
-    // justify-content: space-between;
     transition: all 0.3s ease-in;
   }
 
@@ -32,11 +52,26 @@
   }
 
   &-form {
+    display: flex;
+    width: 450px;
     margin-top: 5px;
+    
+    @include small-desktop {
+      width: 100%;
+    }
+
+    @include tablet {
+      width: 100%;
+    }
+
+    @include mobile {
+      width: 100%;
+      align-items: center;
+    }
   }
 
   &-input {
-    width: 500px;
+    flex: 1;
     max-width: 100%;
     padding: 10px;
     background-color: transparent;
@@ -68,6 +103,10 @@
     &:hover {
       cursor: pointer;
       background-color: var(--light-primary-color);
+    }
+
+    @include mobile {
+      height: 42px;
     }
   }
 }

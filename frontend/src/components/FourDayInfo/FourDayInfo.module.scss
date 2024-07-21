@@ -1,13 +1,23 @@
+@import '../../components/GlobalStyles/responsive.scss';
+
 .four-day {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 30px;
 
+  @include mobile {
+    margin-top: 15px;
+  }
+
   &-title {
     margin-bottom: 30px;
     font-size: 2rem;
     font-weight: 600;
+
+    @include mobile {
+      margin-bottom: 15px;
+    }
   }
 
   &-list {
@@ -18,10 +28,25 @@
     list-style: none;
     padding: none;
     animation: displayAnimation 0.3s ease-in;
+
+    @include small-desktop {
+      flex-wrap: wrap;
+      animation: displayAnimation2 0.3s ease-in;
+    }
+
+    @include mobile {
+      flex-wrap: wrap;
+      animation: displayAnimation2 0.3s ease-in;
+      gap: 10px;
+    }
   }
 
   &-list + &-list {
     margin-top: 30px;
+
+    @include mobile {
+      margin-top: 10px;
+    }
   }
 
   &-item {
@@ -31,6 +56,21 @@
     background-color: var(--light-primary-color);
     border-radius: 20px;
     color: var(--white-color);
+
+    @include small-desktop {
+      flex: unset;
+      flex-shrink: 1;
+      flex-basis: calc(50% - 30px);
+    }
+
+    @include mobile {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex: unset;
+      flex-shrink: 1;
+      flex-basis: calc(100%);
+    }
   }
 
   &-date {
@@ -68,6 +108,10 @@
       cursor: pointer;
       color: var(--light-primary-color);
     }
+
+    @include mobile {
+      margin-top: 20px;
+    }
   }
 }
 
@@ -78,6 +122,14 @@
   } to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes displayAnimation2 {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
   }
 }
 

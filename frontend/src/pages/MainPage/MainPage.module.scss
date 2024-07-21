@@ -1,3 +1,5 @@
+@import '../../components/GlobalStyles/responsive.scss';
+
 .content {
   height: 100vh;
   display: flex;
@@ -13,6 +15,14 @@
   justify-content: center;
   background-color: var(--primary-color);
 
+  @include tablet {
+    min-height: 70px;
+  }
+
+  @include mobile {
+    min-height: 70px;
+  }
+
   &-text {
     font-size: 2.5rem;
     font-weight: 600;
@@ -23,8 +33,14 @@
 .body {
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  @include tablet {
+    flex-direction: column;
+  }
 }
 
 .main-info {
@@ -33,8 +49,17 @@
   display: flex;  
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   background-color: var(--white-color);
+
+  @include tablet {
+    width: 100%;
+    height: unset;
+  }
+
+  @include mobile {
+    width: 100%;
+    height: unset;
+  }
 }
 
 .search {
@@ -46,6 +71,11 @@
   border-style: solid;
   border-radius: 10px;
   transition: all 0.3s ease-in;
+
+  @include mobile {
+    width: calc(100% - 40px);
+    margin-bottom: 20px;
+  }
 
   &:focus-within {
     border-color: var(--primary-color);
@@ -59,6 +89,14 @@
     background: transparent;
     font-size: 1.6rem;
     font-weight: 400;
+
+    @include tablet {
+      width: 300px;
+    }
+
+    @include mobile {
+      flex: 1;
+    }
   }
 
   &-btn {
@@ -85,6 +123,34 @@
   align-items: center;
   color: var(--black-color);
 
+  @include tablet {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  @include mobile {
+    width: 100%;
+    flex-direction: row;
+  }
+  
+  &-part {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tablet-right {
+    @include tablet {
+      flex-direction: column-reverse;
+    }
+
+    @include mobile {
+      flex-direction: column-reverse;
+    }
+  }
+
   &-icon {
     width: 150px;
     height: 150px;
@@ -101,6 +167,10 @@
     &-degree {
       font-size: 8rem;
       font-weight: 400;
+
+      @include mobile {
+        display: none;
+      }
     }
 
     &-unit {
@@ -110,6 +180,16 @@
       font-size: 5rem;
       font-weight: 400;
       position: relative;
+
+      @include tablet {
+        margin-top: 0;
+        text-align: start;  
+        transform: translateY(-10px);
+      }
+
+      @include mobile {
+        display: none;
+      }
 
       &::before {
         content: '';
@@ -130,6 +210,11 @@
     text-wrap: wrap;
     font-size: 2rem;
     font-weight: 400;
+
+    @include mobile {
+      width: 100%;
+      margin: 0;
+    }
   }
 
   &-date {
@@ -144,6 +229,16 @@
 
   &-date + &-text {
     margin-top: 20px;
+    
+    @include tablet {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    @include mobile{
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
   }
 
   &-text + &-text {
@@ -162,7 +257,20 @@
     -webkit-line-clamp: 2;       
     overflow: hidden;           
     text-overflow: ellipsis;     
-    white-space: normal;     
+    white-space: normal;    
+    
+    @include tablet {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    @include mobile {
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 2rem;
+      font-weight: 500;
+    }
   }
 }
 
@@ -171,6 +279,14 @@
   height: 3px;
   margin: 20px 0;
   background-color: var(--gray-color);
+
+  @include tablet {
+    display: none;  
+  }
+
+  @include mobile {
+    display: none;  
+  }
 }
 
 
@@ -183,6 +299,14 @@
   border: none;
   background-color: transparent;
   color: var(--primary-color);
+
+  @include tablet {
+    margin-bottom: 20px;
+  }
+
+  @include mobile {
+    margin-bottom: 20px;
+  }
 
   &:hover {
     cursor: pointer;
@@ -219,7 +343,7 @@
     display: flex;
     flex-direction: column;
     width: 600px;
-    max-width: 100%;
+    max-width: calc(100% - 30px);
     height: 500px;
     padding: 30px;
     background-color: var(--white-color);
@@ -343,10 +467,25 @@
 .options {
   flex: 1;
   max-height: calc(100vh - 70px);
+  width: 100%;
   height: 100%;
   padding: 0 30px;
   background-color: var(--gray-color);
   overflow: auto;
+
+  @include mobile {
+    padding: 0 15px;
+  }
+
+  @include tablet {
+    max-height: unset;
+    overflow: unset;
+  }
+
+  @include mobile {
+    max-height: unset;
+    overflow: unset;
+  }
 }
 
 .display-flex {

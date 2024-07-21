@@ -15,11 +15,15 @@ function FourDayInfo({ data, showMore, setShowMore }) {
           data.filter((item, index) => index < 4).map((data, index) => {
             return (
             <li key={index} className={cx('four-day-item')}>
-              <h4 className={cx('four-day-date')}>{data.date}</h4>
-              <img className={cx('four-day-icon')} src={data.icon} alt='' />
-              <h4 className={cx('four-day-text')}>Temperature: {data.temp}&deg;C</h4>
-              <h4 className={cx('four-day-text')}>Wind: {data.wind} M/S</h4>
-              <h4 className={cx('four-day-text')}>Humidity: {data.humid}%</h4>
+              <div>
+                <h4 className={cx('four-day-date')}>{data.date}</h4>
+                <img className={cx('four-day-icon')} src={data.icon} alt='' />
+              </div>
+              <div>
+                <h4 className={cx('four-day-text')}>Temperature: {data.temp}&deg;C</h4>
+                <h4 className={cx('four-day-text')}>Wind: {data.wind} M/S</h4>
+                <h4 className={cx('four-day-text')}>Humidity: {data.humid}%</h4>
+              </div>
             </li>
           )})
           :
@@ -34,11 +38,15 @@ function FourDayInfo({ data, showMore, setShowMore }) {
               data.filter((item, index) => index >= 4).map((data, index) => {
                 return (
                 <li key={index} className={cx('four-day-item')}>
-                  <h4 className={cx('four-day-date')}>{data.date}</h4>
-                  <img className={cx('four-day-icon')} src={data.icon} alt='' />
-                  <h4 className={cx('four-day-text')}>Temperature: {data.temp}&deg;C</h4>
-                  <h4 className={cx('four-day-text')}>Wind: {data.wind} M/S</h4>
-                  <h4 className={cx('four-day-text')}>Humidity: {data.humid}%</h4>
+                  <div>
+                    <h4 className={cx('four-day-date')}>{data.date}</h4>
+                    <img className={cx('four-day-icon')} src={data.icon} alt='' />
+                  </div>
+                  <div>
+                    <h4 className={cx('four-day-text')}>Temperature: {data.temp}&deg;C</h4>
+                    <h4 className={cx('four-day-text')}>Wind: {data.wind} M/S</h4>
+                    <h4 className={cx('four-day-text')}>Humidity: {data.humid}%</h4>
+                  </div>
                 </li>
               )})
             }

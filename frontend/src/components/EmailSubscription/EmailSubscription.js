@@ -13,7 +13,7 @@ function EmailSubScription({ isLoading, setIsLoading }) {
   const [isRegister, setIsRegister] = useState(true);
 
   const registerText = 'Subscribe to receive daily weather forecast information directly in your inbox. Our service will keep you informed about the upcoming weather conditions, so you’re always prepared for what’s ahead. Sign up today and never miss an important weather update!';
-  const unsubscribeText = 'Enter your registered email below to unsubscribe.'
+  const unsubscribeText = 'To unsubscribe from weather notifications, enter your registered email below. We\'ll ensure you no longer receive updates.'
   const registerTitle = 'Receive weather forecast information via email';
   const unsubscribeTitle = 'Unsubscribe from weather updates';
 
