@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function EmailSubScription() {
   const [email, setEmail] = useState('');
-  const [isRegister, setIsRegister] = useState(false);
+  const [isRegister, setIsRegister] = useState(true);
 
   const registerText = 'Subscribe to receive daily weather forecast information directly in your inbox. Our service will keep you informed about the upcoming weather conditions, so you’re always prepared for what’s ahead. Sign up today and never miss an important weather update!';
   const unsubscribeText = 'Enter your registered email below to unsubscribe.'

@@ -1,6 +1,9 @@
-import MainPage from "./pages/MainPage/MainPage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import MainPage from "./pages/MainPage/MainPage";
+import VerifyPage from './pages/VerifyPage/VerifyPage';
 
 function App() {
   return (
@@ -20,7 +23,14 @@ function App() {
         />
       <ToastContainer />
       
-      <MainPage />
+      <div className='App'>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/verify/:token" element={<VerifyPage />} />
+          </Routes>
+        </Router>
+      </div>
     </div>
   );
 }
