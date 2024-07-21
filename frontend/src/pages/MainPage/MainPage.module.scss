@@ -41,8 +41,16 @@
   display: flex;
   margin-top: 20px;
   background-color: var(--gray-color);
+  border-color: var(--white-color);
+  border-width: 2px;
+  border-style: solid;
   border-radius: 10px;
+  transition: all 0.3s ease-in;
 
+  &:focus-within {
+    border-color: var(--primary-color);
+  }
+  
   &-input {
     width: 200px;
     margin: 0 10px;
