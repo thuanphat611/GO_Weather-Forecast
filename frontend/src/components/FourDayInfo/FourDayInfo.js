@@ -1,11 +1,9 @@
 import classNames from "classnames/bind";
 import styles from './FourDayInfo.module.scss';
-import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
-function FourDayInfo({ data }) {
-  const [showMore, setShowMore] = useState(false);
+function FourDayInfo({ data, showMore, setShowMore }) {
 
   return (
     <div className={cx('four-day')}>

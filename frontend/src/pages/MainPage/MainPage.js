@@ -10,6 +10,7 @@ import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation
 import FourDayInfo from '../../components/FourDayInfo/FourDayInfo';
 import EmailSubScription from '../../components/EmailSubscription/EmailSubscription';
 import { getWeatherData } from '../../api/weatherApi';
+import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,8 @@ function MainPage() {
   const [data, setData] = useState(undefined);
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true while fetching data from the server to show the loading animation
+  const [showMore, setShowMore] = useState(false); //4-day forecast show more
+  const [history, setHistory] = useState([]);
   const [historyDisplay, setHistoryDisplay] = useState(false);
  
 
@@ -26,11 +29,14 @@ function MainPage() {
       const defaultLocation = 'Ho Chi Minh';
 
       setIsLoading(true);
-      
-      const result = await getWeatherData(defaultLocation);
+      toast.dismiss();// delete all messages on the screen
 
-      setIsLoading(false);
-      setData(result.data);
+      try {
+        const result = await getWeatherData(defaultLocation);
+        setIsLoading(false);
+        setData(result.data);
+        addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
+      } catch (err) {}
     }
     getData();
   }, []);
@@ -42,6 +48,7 @@ function MainPage() {
     }
 
     setIsLoading(true);
+    toast.dismiss();// delete all messages on the screen
 
     try {
       const result = await getWeatherData(location);
@@ -49,6 +56,7 @@ function MainPage() {
       //set data into new weather data if success, otherwise use current weather data
       if (result?.data.success) {
         setLocation('');
+        addSearchToHistory(result.data);
         setData(result.data);
       }
     } catch (err) {
@@ -69,7 +77,7 @@ function MainPage() {
       <div className={cx('body')}>
         <div className={cx('main-info')}>
           <div className={cx('search')}>
-            <input type='text' className={cx('search-input')} autocomplete='off' placeholder='E.g., New York, London'
+            <input type='text' className={cx('search-input')} autoComplete='off' placeholder='E.g., New York, London'
               value={location}
               onChange={(e) => {
                 setLocation(e.target.value);
@@ -106,6 +114,7 @@ function MainPage() {
             <h4 className={cx('history-text')}
               onClick={() => {
                 setHistoryDisplay(true);
+                setHistory(getSearchHistory());
               }}
             >
               History
@@ -123,23 +132,40 @@ function MainPage() {
               </button>
               <h4 className={cx('history-title')}>Weather Search History</h4>
               <ul className={cx('history-list')}>
-                <li className={cx('history-item')}>
-                  <div className={cx('history-item-content')}>
-                    <div className={cx('history-item-heading')}>
-                      <img className={cx('history-item-img')} src='https://cdn.weatherapi.com/weather/64x64/day/116.png' alt='' />
-                      <h4 className={cx('history-item-name')}>London</h4>
-                    </div>
-                    <h4 className={cx('history-item-text')}>Partly cloudy, 31&deg;C</h4>
-                  </div>
-                  <button className={cx('history-item-show')}>Show</button>
-                </li>
+              {
+                history.length > 0 ?
+                history?.map((item, index) => {
+                  return (
+                    <li key={index} className={cx('history-item')}>
+                      <div className={cx('history-item-content')}>
+                        <div className={cx('history-item-heading')}>
+                          <img className={cx('history-item-img')} src={'https://' + item?.current?.icon} alt='' />
+                          <h4 className={cx('history-item-name')}>{item?.name}</h4>
+                        </div>
+                        <h4 className={cx('history-item-text')}>{item?.current?.condition}, {item?.current?.temp}&deg;C</h4>
+                      </div>
+                      <button className={cx('history-item-show')}
+                        onClick={() => {
+                          setData(item);
+                          setHistoryDisplay(false);
+                          setShowMore(false);
+                        }}
+                      >
+                        Show
+                      </button>
+                    </li>
+                  )
+                })
+                :
+                <h4>History is empty</h4>
+              }
               </ul>
             </div>
           </div>
         </div>
 
         <div className={cx('options')}>
-          <FourDayInfo data={data?.nextDays}/>
+          <FourDayInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
           <EmailSubScription />
         </div>
       </div>

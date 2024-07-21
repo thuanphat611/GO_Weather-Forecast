@@ -12,7 +12,6 @@ const getData = async function(location) {
     const result = {
       success: true,
       name: data.location.name,
-      timestamp: data.location.localtime_epoch,
       current: {
         date: data.location.localtime.split(' ')[0],
         icon: data.current.condition.icon,
