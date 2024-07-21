@@ -166,7 +166,7 @@ function MainPage() {
 
         <div className={cx('options')}>
           <FourDayInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
-          <EmailSubScription />
+          <EmailSubScription isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
       </div>
     </div>

@@ -1,34 +1,58 @@
 const crypto = require('crypto');
 const Subscription = require('../models/subscription');
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
+require('dotenv').config(); 
 
-// const transporter = nodemailer.createTransport({
-//   service: 'Gmail', // Hoặc dịch vụ email của bạn
-//   auth: {
-//     user: 'your-email@gmail.com',
-//     pass: 'your-email-password'
-//   }
-// });
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  auth: {
+    user: process.env.MAILER_EMAIL,
+    pass: process.env.MAILER_PASSWORD
+  }
+});
 
-// Hàm gửi email xác nhận
-// async function sendConfirmationEmail(userEmail, token) {
-//   const confirmationLink = `https://yourdomain.com/confirm?token=${token}`;
+// Function to send verification email
+async function sendConfirmationEmail(userEmail, type, token) {
+  const confirmationLink = `http://${process.env.FRONTEND_URL}/verify/${type}/${token}`;
+  const verifyType = type === 'register' ? 'Subscription' : 'Unsubscription';
+  const htmlContent = `
+    <p style="font-size: 18px;">Please confirm your ${verifyType} by clicking the following link:</p>
+    <p style="font-size: 18px;">
+      <a href="${confirmationLink}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #5372f0;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+      ">Confirm ${verifyType}</a>
+    </p>
+    <p style="font-size: 18px;">
+      If the above don't work, go to this site, instead:<br>
+      <a href="${confirmationLink}" style="
+        color: #5372f0;
+        text-decoration: underline;
+      ">${confirmationLink}</a>
+    </p>
+  `;
 
-//   const mailOptions = {
-//     from: 'your-email@gmail.com',
-//     to: userEmail,
-//     subject: 'Confirm Your Subscription',
-//     text: `Please confirm your subscription by clicking the following link: ${confirmationLink}`,
-//     html: `<p>Please confirm your subscription by clicking the following link:</p><a href="${confirmationLink}">Confirm Subscription</a>`
-//   };
+  const mailOptions = {
+    from: process.env.MAILER_EMAIL,
+    to: userEmail,
+    subject: 'GO Weather Forecast - Confirm Your ' + verifyType,
+    html:  htmlContent
+  };
 
-//   try {
-//     await transporter.sendMail(mailOptions);
-//     console.log('Confirmation email sent');
-//   } catch (error) {
-//     console.error('Error sending confirmation email:', error);
-//   }
-// }
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Confirmation email sent');
+  } catch (error) {
+    console.error('Error sending confirmation email:', error);
+  }
+}
 
 // Controller handle register
 const registerSubscription = async (req, res) => {
@@ -48,7 +72,7 @@ const registerSubscription = async (req, res) => {
       }
       else {
         //Resend verification token
-        // await sendConfirmationEmail(subscription.email, subscription.verifyToken);
+        await sendConfirmationEmail(subscription.email, 'register', subscription.verifyToken);
         return res.status(201).json({success: true, message: 'Subscription registered. Please check your email to confirm.'});
       }
     }
@@ -58,7 +82,7 @@ const registerSubscription = async (req, res) => {
     await subscription.save();
 
     // Send verification email
-    // await sendConfirmationEmail(subscription.email, subscription.verifyToken);
+    await sendConfirmationEmail(subscription.email, 'register', subscription.verifyToken);
 
     res.status(201).json({success: true, message: 'Subscription registered. Please check your email to confirm.'});
   } catch (err) {
@@ -114,7 +138,7 @@ const unsubscribeEmail = async (req, res) => {
     subscription.unsubscribeToken = crypto.randomBytes(20).toString('hex');
     await subscription.save();
 
-    // await sendUnsubscribeConfirmationEmail(subscription.email, subscription.unsubscribeToken);
+    await sendConfirmationEmail(subscription.email, 'unsubscribe', subscription.unsubscribeToken);
 
     res.status(200).json({success: true, message: 'Unsubscribe request received. Please check your email to confirm.'});
   } catch (err) {
