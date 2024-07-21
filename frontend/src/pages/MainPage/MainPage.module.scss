@@ -15,6 +15,10 @@
   justify-content: center;
   background-color: var(--primary-color);
 
+  @include small-desktop {
+    min-height: 70px;
+  }
+
   @include tablet {
     min-height: 70px;
   }
@@ -426,6 +430,10 @@
     &-text {
       font-size: 1.6rem;
       font-weight: 400;
+
+      @include mobile {
+        display: none;
+      }
     }
 
     &-show {
