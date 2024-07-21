@@ -27,7 +27,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/verify/:token" element={<VerifyPage />} />
+            <Route path="/verify/:type/:token" element={<VerifyPage />} />
           </Routes>
         </Router>
       </div>

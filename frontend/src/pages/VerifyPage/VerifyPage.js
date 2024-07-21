@@ -7,21 +7,37 @@ import { BsEmojiFrownFill } from "react-icons/bs";
 import { MdMarkEmailRead } from "react-icons/md";
 
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { postRegisterVerification, postUnsubscribeVerification } from "../../api/weatherApi";
 
 const cx = classNames.bind(styles);
 
 function VerifyPage() {
-  // const { token } = useParams();
+  const { type, token } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('Some error occured, please try again.');
 
   useEffect(()  => {
     const getData = async () => {
+      setIsLoading(true)
+      let result = {};
+
+      if (type === 'register') {
+        result = await postRegisterVerification(token);
+      } else if (type === 'unsubscribe') {
+        result = await postUnsubscribeVerification(token);
+      }
+      else {
+        return;
+      }
       
+      setSuccess(result?.success);
+      setMessage(result?.message);
+
+      setIsLoading(false);
     }
     getData();
-  }, []);
+  }, [type]);
 
   return (
     <div className={cx('content')}>

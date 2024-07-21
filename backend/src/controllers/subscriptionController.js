@@ -44,7 +44,7 @@ const registerSubscription = async (req, res) => {
 
     if (subscription) {
       if (subscription.isVerified) {
-        return res.status(400).json({success: false, message: 'Subscription already exists.'});
+        return res.status(400).json({success: false, message: 'Subscription email already exists.'});
       }
       else {
         //Resend verification token
