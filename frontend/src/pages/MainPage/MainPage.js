@@ -3,6 +3,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import styles from './MainPage.module.scss';
 
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
@@ -18,22 +19,45 @@ function MainPage() {
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true while fetching data from the server to show the loading animation
   const [historyDisplay, setHistoryDisplay] = useState(false);
  
+
+  //Fetch data from backend when the page is loaded
   useEffect(() => {
     const getData = async () => {
-      const defaultLocation = 'London';
+      const defaultLocation = 'Ho Chi Minh';
 
       setIsLoading(true);
       
       const result = await getWeatherData(defaultLocation);
-      console.log(result)
-      setIsLoading(false);
 
-      if (result?.data.success) {
-        setData(result.data);
-      }
+      setIsLoading(false);
+      setData(result.data);
     }
     getData();
   }, []);
+
+  //Handle searching weather information of a location
+  const handleSearch =  async () => {
+    if (location.length === 0) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const result = await getWeatherData(location);
+
+      //set data into new weather data if success, otherwise use current weather data
+      if (result?.data.success) {
+        setLocation('');
+        setData(result.data);
+      }
+    } catch (err) {
+      //use react-toastify to display toast messages
+      toast.error(err?.response?.data?.error || 'Some error occured, please try again');
+    }
+
+    setIsLoading(false);
+  }
 
   return (
     <div className={cx('content')}>
@@ -51,7 +75,11 @@ function MainPage() {
                 setLocation(e.target.value);
               }}
             />
-            <button className={cx('search-btn')}>
+            <button className={cx('search-btn')}
+              onClick={() => {
+                handleSearch();
+              }}
+            >
               <FaMagnifyingGlass />
             </button>
           </div>

@@ -35,7 +35,7 @@ const getData = async function(location) {
 
     return result;
   } catch (err) {
-    console.error('Error fetching data:', err.response.data.error.message);
+    console.error('Error fetching data:', err);
     return {
       success: false,
       error: err.response.data.error.message
