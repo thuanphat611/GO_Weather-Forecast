@@ -69,7 +69,7 @@ function MainPage() {
       <div className={cx('body')}>
         <div className={cx('main-info')}>
           <div className={cx('search')}>
-            <input type='text' className={cx('search-input')} placeholder='E.g., New York, London'
+            <input type='text' className={cx('search-input')} autocomplete='off' placeholder='E.g., New York, London'
               value={location}
               onChange={(e) => {
                 setLocation(e.target.value);

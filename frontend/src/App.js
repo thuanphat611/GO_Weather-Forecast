@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       {/* react-toastify ToastContainer, used to display toast messages */}
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -16,8 +16,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
-        // transition: Bounce,
+        theme='light'
         />
       <ToastContainer />
       

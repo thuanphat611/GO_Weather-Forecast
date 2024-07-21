@@ -14,7 +14,7 @@ function EmailSubScription() {
         <h3 className={cx('subscription-title')}>Receive weather forecast information via email</h3>
         <p className={cx('subscription-text')}>Subscribe to receive daily weather forecast information directly in your inbox. Our service will keep you informed about the upcoming weather conditions, so you’re always prepared for what’s ahead. Sign up today and never miss an important weather update!</p>
         <form className={cx('subscription-form')}>
-          <input type='email' className={cx('subscription-input')} placeholder='Enter your email here'/>
+          <input type='email' className={cx('subscription-input')}  autocomplete='off' placeholder='Enter your email here'/>
           <button className={cx('subscription-btn')}>Notify Me</button>
         </form>
       </div>
