@@ -96,7 +96,7 @@ function MainPage() {
             <div className={cx('weather-part')}>
               <img className={cx('weather-icon')} src={'https:' + data?.current.icon} alt=''/>
               <div className={cx('weather-temp')}>
-                <h1 className={cx('weather-temp-degree')}>{data?.current.temp}</h1>
+                <h1 className={cx('weather-temp-degree')}>{data?.current.temp || '--'}</h1>
                 <h4 className={cx('weather-temp-unit')}>C</h4>
               </div>
               <h4 className={cx('weather-info')}>{data?.current.condition}</h4>
@@ -104,9 +104,9 @@ function MainPage() {
             <div className={cx('weather-part', 'tablet-right')}>
               <span className={cx('seperate')}></span>
               <h3 className={cx('weather-date')}>{data?.current.date}</h3>
-              <h4 className={cx('weather-text')}>Temperature: {data?.current.temp}&deg;C</h4>
-              <h4 className={cx('weather-text')}>Wind: {data?.current.wind} mph</h4>
-              <h4 className={cx('weather-text')}>Humidity: {data?.current.humid}%</h4>
+              <h4 className={cx('weather-text')}>Temperature: {data?.current.temp || '--'}&deg;C</h4>
+              <h4 className={cx('weather-text')}>Wind: {data?.current.wind || '--'} mph</h4>
+              <h4 className={cx('weather-text')}>Humidity: {data?.current.humid || '--'}%</h4>
               <h1 className={cx('weather-location')}>{data?.name}</h1>
             </div>
           </div>
