@@ -37,7 +37,7 @@ function VerifyPage() {
       setIsLoading(false);
     }
     getData();
-  }, [type]);
+  }, [type, token]);
 
   return (
     <div className={cx('content')}>
