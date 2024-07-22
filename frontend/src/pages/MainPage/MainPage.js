@@ -30,13 +30,13 @@ function MainPage() {
 
       setIsLoading(true);
       toast.dismiss();// delete all messages on the screen
-
-      try {
-        const result = await getWeatherData(defaultLocation);
-        setIsLoading(false);
-        setData(result.data);
+      const result = await getWeatherData(defaultLocation);
+      setIsLoading(false);
+      setData(result?.data);
+      if (result?.data) {
         addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
-      } catch (err) {}
+      }
+    
     }
     getData();
   }, []);
@@ -107,7 +107,7 @@ function MainPage() {
               <h4 className={cx('weather-text')}>Temperature: {data?.current.temp || '--'}&deg;C</h4>
               <h4 className={cx('weather-text')}>Wind: {data?.current.wind || '--'} mph</h4>
               <h4 className={cx('weather-text')}>Humidity: {data?.current.humid || '--'}%</h4>
-              <h1 className={cx('weather-location')}>{data?.name}</h1>
+              <h1 className={cx('weather-location')}>{data?.name || 'Error fetching data from backend'}</h1>
             </div>
           </div>
 
