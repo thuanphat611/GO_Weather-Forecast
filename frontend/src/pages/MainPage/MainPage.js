@@ -26,7 +26,7 @@ function MainPage() {
   //Fetch data from backend when the page is loaded
   useEffect(() => {
     const getData = async () => {
-      const defaultLocation = 'Ho Chi Minh';
+      const defaultLocation = 'London';
 
       setIsLoading(true);
       toast.dismiss();// delete all messages on the screen
