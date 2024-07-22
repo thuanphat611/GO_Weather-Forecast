@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 // Function to send verification email
 async function sendConfirmationEmail(userEmail, type, token) {
-  const confirmationLink = `http://${process.env.FRONTEND_URL}/verify/${type}/${token}`;
+  const confirmationLink = `https://${process.env.FRONTEND_URL}/verify/${type}/${token}`;
   const verifyType = type === 'register' ? 'Subscription' : 'Unsubscription';
   const htmlContent = `
     <p style="font-size: 18px;">Please confirm your ${verifyType} by clicking the following link:</p>
