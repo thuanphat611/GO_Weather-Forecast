@@ -37,9 +37,20 @@ const getData = async function(location) {
     return result;
   } catch (err) {
     console.error('Error fetching data:', err);
+    
+    if (err.response) {
+      
+      if (err.response.status === 429) { //over weatherbit daily limit
+        return {
+          success: false,
+          error: 'Exceeded daily API request limit'
+        };
+      }
+    }
+
     return {
       success: false,
-      message: err.response?.data?.error?.message
+      error: err.response?.data?.error?.message
     };
   }
 }

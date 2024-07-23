@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import MainPage from "./pages/MainPage/MainPage";
 import VerifyPage from './pages/VerifyPage/VerifyPage';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/verify/:type/:token" element={<VerifyPage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Router>
       </div>
