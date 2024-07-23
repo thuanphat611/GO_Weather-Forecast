@@ -4,6 +4,7 @@ import { FaHistory } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import styles from './MainPage.module.scss';
 
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
@@ -15,6 +16,8 @@ import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage'
 const cx = classNames.bind(styles);
 
 function MainPage() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState(undefined);
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true while fetching data from the server to show the loading animation
@@ -38,12 +41,12 @@ function MainPage() {
         }
 
       } catch (err) {
-
+        navigate('/limit');
       }
       setIsLoading(false);
     }
     getData();
-  }, []);
+  }, [navigate]);
 
   //Handle searching weather information of a location
   const handleSearch =  async () => {
