@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import styles from './MainPage.module.scss';
 
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
-import FourDayInfo from '../../components/FourDayInfo/FourDayInfo';
+import FutureInfo from '../../components/FutureInfo/FutureInfo';
 import EmailSubScription from '../../components/EmailSubscription/EmailSubscription';
 import { getWeatherData } from '../../api/weatherApi';
 import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage';
@@ -169,7 +169,7 @@ function MainPage() {
         </div>
 
         <div className={cx('options')}>
-          <FourDayInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
+          <FutureInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
           <EmailSubScription isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
       </div>

@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
-import styles from './FourDayInfo.module.scss';
+import styles from './FutureInfo.module.scss';
 
 const cx = classNames.bind(styles);
 
-function FourDayInfo({ data, showMore, setShowMore }) {
+function FutureInfo({ data, showMore, setShowMore }) {
 
   return (
     <div className={cx('four-day')}>
@@ -72,4 +72,4 @@ function FourDayInfo({ data, showMore, setShowMore }) {
   );
 }
 
-export default FourDayInfo;
+export default FutureInfo;
