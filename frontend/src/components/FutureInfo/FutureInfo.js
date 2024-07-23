@@ -12,7 +12,7 @@ function FutureInfo({ data, showMore, setShowMore }) {
         {
           //Check if data is loaded and display it
           data ?
-          data.filter((item, index) => index < 4).map((data, index) => {
+          data.filter((item, index) => index < 3).map((data, index) => {
             return (
             <li key={index} className={cx('four-day-item')}>
               <div>
@@ -35,7 +35,7 @@ function FutureInfo({ data, showMore, setShowMore }) {
         (
           <ul className={cx('four-day-list')}>
             {
-              data.filter((item, index) => index >= 4).map((data, index) => {
+              data.filter((item, index) => index >= 3 && index < 6).map((data, index) => {
                 return (
                 <li key={index} className={cx('four-day-item')}>
                   <div>

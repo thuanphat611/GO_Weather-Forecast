@@ -4,31 +4,34 @@ require('dotenv').config();
 const apiKey = process.env.WEATHER_API_KEY;
 
 const getData = async function(location) {
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&days=9&aqi=yes&q=${location}`; 
+  const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${location}&key=${apiKey}`; 
+  console.log(url);
 
   try {
     const response = await axios.get(url)
     const data = response.data;
+    const currentWeatherData = data.data[0];
+
     const result = {
       success: true,
-      name: data.location.name,
+      name: data.city_name,
       current: {
-        date: data.location.localtime.split(' ')[0],
-        icon: data.current.condition.icon,
-        condition: data.current.condition.text,
-        temp: data.current.temp_c,
-        wind: data.current.wind_mph,
-        humid: data.current.humidity
+        date: currentWeatherData.datetime,
+        icon: 'https://cdn.weatherbit.io/static/img/icons/' + currentWeatherData.weather.icon + '.png',
+        condition: currentWeatherData.weather.description,
+        temp: currentWeatherData.temp,
+        wind: currentWeatherData.wind_spd,
+        humid: currentWeatherData.rh
       },
-      nextDays: data.forecast.forecastday
+      nextDays: data.data
       .filter((data, index) => index > 0) //first item is current date, only take the rest
       .map((data) => ({
-        date: data.date,
-        icon: data.day.condition.icon,
-        condition: data.day.condition.text,
-        temp: data.day.avgtemp_c,
-        wind: data.day.maxwind_mph,
-        humid: data.day.avghumidity
+        date: data.datetime,
+        icon: 'https://cdn.weatherbit.io/static/img/icons/' + currentWeatherData.weather.icon + '.png',
+        condition: data.weather.description,
+        temp: data.temp,
+        wind: data.wind_spd,
+        humid: data.rh
       }))
     }
 

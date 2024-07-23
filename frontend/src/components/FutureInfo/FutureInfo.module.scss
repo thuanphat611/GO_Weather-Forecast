@@ -29,10 +29,10 @@
     padding: none;
     animation: displayAnimation 0.3s ease-in;
 
-    @include small-desktop {
-      flex-wrap: wrap;
-      animation: displayAnimation2 0.3s ease-in;
-    }
+    // @include small-desktop {
+    //   flex-wrap: wrap;
+    //   animation: displayAnimation2 0.3s ease-in;
+    // }
 
     @include mobile {
       flex-wrap: wrap;
@@ -57,11 +57,11 @@
     border-radius: 20px;
     color: var(--white-color);
 
-    @include small-desktop {
-      flex: unset;
-      flex-shrink: 1;
-      flex-basis: calc(50% - 30px);
-    }
+    // @include small-desktop {
+    //   flex: unset;
+    //   flex-shrink: 1;
+    //   flex-basis: calc(50% - 30px);
+    // }
 
     @include mobile {
       display: flex;
