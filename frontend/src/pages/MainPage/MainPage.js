@@ -143,7 +143,7 @@ function MainPage() {
                     <li key={index} className={cx('history-item')}>
                       <div className={cx('history-item-content')}>
                         <div className={cx('history-item-heading')}>
-                          <img className={cx('history-item-img')} src={'https://' + item?.current?.icon} alt='' />
+                          <img className={cx('history-item-img')} src={item?.current?.icon} alt='' />
                           <h4 className={cx('history-item-name')}>{item?.name}</h4>
                         </div>
                         <h4 className={cx('history-item-text')}>{item?.current?.condition}, {item?.current?.temp}&deg;C</h4>
@@ -170,7 +170,7 @@ function MainPage() {
 
         <div className={cx('options')}>
           <FutureInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
-          <EmailSubScription isLoading={isLoading} setIsLoading={setIsLoading} />
+          <EmailSubScription setIsLoading={setIsLoading} />
         </div>
       </div>
     </div>

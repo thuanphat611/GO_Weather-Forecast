@@ -5,7 +5,6 @@ const apiKey = process.env.WEATHER_API_KEY;
 
 const getData = async function(location) {
   const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${location}&key=${apiKey}`; 
-  console.log(url);
 
   try {
     const response = await axios.get(url)
