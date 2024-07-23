@@ -9,20 +9,20 @@ const getData = async function(location) {
   try {
     const response = await axios.get(url)
     const data = response.data;
-    const currentWeatherData = data.data[0];
+    const currentWeatherData = data?.data[0];
 
     const result = {
       success: true,
-      name: data.city_name,
+      name: data?.city_name,
       current: {
-        date: currentWeatherData.datetime,
-        icon: 'https://cdn.weatherbit.io/static/img/icons/' + currentWeatherData.weather.icon + '.png',
-        condition: currentWeatherData.weather.description,
-        temp: currentWeatherData.temp,
-        wind: currentWeatherData.wind_spd,
-        humid: currentWeatherData.rh
+        date: currentWeatherData?.datetime,
+        icon: 'https://cdn.weatherbit.io/static/img/icons/' + currentWeatherData?.weather.icon + '.png',
+        condition: currentWeatherData?.weather.description,
+        temp: currentWeatherData?.temp,
+        wind: currentWeatherData?.wind_spd,
+        humid: currentWeatherData?.rh
       },
-      nextDays: data.data
+      nextDays: data?.data
       .filter((data, index) => index > 0) //first item is current date, only take the rest
       .map((data) => ({
         date: data.datetime,
@@ -39,7 +39,7 @@ const getData = async function(location) {
     console.error('Error fetching data:', err);
     return {
       success: false,
-      message: err.response.data.error.message
+      message: err.response?.data?.error?.message
     };
   }
 }

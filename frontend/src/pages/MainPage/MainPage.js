@@ -30,13 +30,17 @@ function MainPage() {
 
       setIsLoading(true);
       toast.dismiss();// delete all messages on the screen
-      const result = await getWeatherData(defaultLocation);
-      setIsLoading(false);
-      setData(result?.data);
-      if (result?.data) {
-        addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
+      try {
+        const result = await getWeatherData(defaultLocation);
+        setData(result?.data);
+        if (result?.data) {
+          addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
+        }
+
+      } catch (err) {
+
       }
-    
+      setIsLoading(false);
     }
     getData();
   }, []);
@@ -49,7 +53,7 @@ function MainPage() {
 
     setIsLoading(true);
     toast.dismiss();// delete all messages on the screen
-
+    
     try {
       const result = await getWeatherData(location);
 
@@ -58,9 +62,8 @@ function MainPage() {
         setLocation('');
         addSearchToHistory(result.data);
         setData(result.data);
-      }
+      } 
     } catch (err) {
-      //use react-toastify to display toast messages
       toast.error(err?.response?.data?.error || 'Some error occured, please try again');
     }
 

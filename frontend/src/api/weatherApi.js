@@ -1,16 +1,13 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const getWeatherData = async (location) => {
   const url = `${backendUrl}/weather/get-data?location=${location}`;
+  const result = await axios.get(url);
   
-  try {
-    const result = await axios.get(url);
-    return result;
-  } catch (err) {
-    return undefined;
-  }
+  return result;
 };
 
 const postRegisterEmail = async (email) => {
@@ -21,6 +18,7 @@ const postRegisterEmail = async (email) => {
     
     return {success: true, message: response?.data?.message};
   } catch (err) {
+    toast.error(err?.response?.data?.error || 'Some error occured, please try again');
     return {success: false, message: err.response?.data?.message || 'Some error occured'};
   }
 }
