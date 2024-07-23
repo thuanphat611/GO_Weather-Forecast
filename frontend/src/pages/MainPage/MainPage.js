@@ -76,7 +76,7 @@ function MainPage() {
       <LoadingAnimation isLoading={isLoading} />
       <div className={cx('body')}>
         <div className={cx('main-info')}>
-          <div className={cx('search')}>
+          <form className={cx('search')}>
             <input type='text' className={cx('search-input')} autoComplete='off' placeholder='E.g., New York, London'
               value={location}
               onChange={(e) => {
@@ -84,13 +84,14 @@ function MainPage() {
               }}
             />
             <button className={cx('search-btn')}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 handleSearch();
               }}
             >
               <FaMagnifyingGlass />
             </button>
-          </div>
+          </form>
 
           <div className={cx('weather')}>
             <div className={cx('weather-part')}>
