@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
-import styles from './ErrorPage.module.scss';
-import { BsEmojiFrownFill } from "react-icons/bs";
+import styles from './NotFoundPage.module.scss';
+import { FaLinkSlash } from "react-icons/fa6";
 
 const cx = classNames.bind(styles);
 
@@ -13,10 +13,10 @@ function ErrorPage() {
       
       <div className={cx('body')}>
         <div className={cx('icon')}>
-          <BsEmojiFrownFill />
+          <FaLinkSlash />
         </div>
 
-        <h4 className={cx('text')}>Something wrong happended</h4>
+        <h4 className={cx('text')}>The page you are looking for does not exist<br/> Please check the URL and try again</h4>
       </div>
     </div>
   );

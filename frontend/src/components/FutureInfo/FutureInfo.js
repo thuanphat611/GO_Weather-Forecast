@@ -7,7 +7,7 @@ function FutureInfo({ data, showMore, setShowMore }) {
 
   return (
     <div className={cx('four-day')}>
-      <h3 className={cx('four-day-title')}>4-Day Forecast</h3>
+      <h3 className={cx('four-day-title')}>3-Day Forecast</h3>
       <ul className={cx('four-day-list')}>
         {
           //Check if data is loaded and display it

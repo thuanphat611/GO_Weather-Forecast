@@ -41,7 +41,11 @@ function MainPage() {
         }
 
       } catch (err) {
-        navigate('/limit');
+        if (err?.response?.status === 429) {
+          navigate('/limit');
+        } else {
+          navigate('/error');
+        }
       }
       setIsLoading(false);
     }
