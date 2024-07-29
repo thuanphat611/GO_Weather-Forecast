@@ -6,7 +6,7 @@
 2. Run the command `npm i` to install all necessary packages.
 3. Create a `.env` file in the `backend` directory with the following content:
     - `PORT=<port for NodeJS to run on>`
-    - `FRONTEND_URL=<frontend url>` (e.g., `localhost:4000`)
+    - `FRONTEND_URL=<frontend url>` (e.g., `http://localhost:4000`)
     - `DATABASE_URI=<MongoDB connection string, used to connect to a MongoDB cluster on MongoDB Atlas or local>`
     - `WEATHER_API_KEY=<weatherapi.com API key>`
     - `MAILER_EMAIL=<email address that will send confirmation emails to verify subscription/unsubscription requests>` (Backend uses Nodemailer to send emails)
