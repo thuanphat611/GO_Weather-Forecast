@@ -4,10 +4,11 @@ import { FaHistory } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import styles from './MainPage.module.scss';
 
 import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
-import FourDayInfo from '../../components/FourDayInfo/FourDayInfo';
+import FutureInfo from '../../components/FutureInfo/FutureInfo';
 import EmailSubScription from '../../components/EmailSubscription/EmailSubscription';
 import { getWeatherData } from '../../api/weatherApi';
 import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage';
@@ -15,6 +16,8 @@ import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage'
 const cx = classNames.bind(styles);
 
 function MainPage() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState(undefined);
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(true); // Set isLoading to true while fetching data from the server to show the loading animation
@@ -30,16 +33,24 @@ function MainPage() {
 
       setIsLoading(true);
       toast.dismiss();// delete all messages on the screen
-      const result = await getWeatherData(defaultLocation);
-      setIsLoading(false);
-      setData(result?.data);
-      if (result?.data) {
-        addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
+      try {
+        const result = await getWeatherData(defaultLocation);
+        setData(result?.data);
+        if (result?.data) {
+          addSearchToHistory(result.data); //Use localStorage to save tempory weather information history(../untils/localStorage.js)
+        }
+
+      } catch (err) {
+        if (err?.response?.status === 429) {
+          navigate('/limit');
+        } else {
+          navigate('/error');
+        }
       }
-    
+      setIsLoading(false);
     }
     getData();
-  }, []);
+  }, [navigate]);
 
   //Handle searching weather information of a location
   const handleSearch =  async () => {
@@ -49,7 +60,7 @@ function MainPage() {
 
     setIsLoading(true);
     toast.dismiss();// delete all messages on the screen
-
+    
     try {
       const result = await getWeatherData(location);
 
@@ -58,9 +69,8 @@ function MainPage() {
         setLocation('');
         addSearchToHistory(result.data);
         setData(result.data);
-      }
+      } 
     } catch (err) {
-      //use react-toastify to display toast messages
       toast.error(err?.response?.data?.error || 'Some error occured, please try again');
     }
 
@@ -76,7 +86,7 @@ function MainPage() {
       <LoadingAnimation isLoading={isLoading} />
       <div className={cx('body')}>
         <div className={cx('main-info')}>
-          <div className={cx('search')}>
+          <form className={cx('search')}>
             <input type='text' className={cx('search-input')} autoComplete='off' placeholder='E.g., New York, London'
               value={location}
               onChange={(e) => {
@@ -84,17 +94,18 @@ function MainPage() {
               }}
             />
             <button className={cx('search-btn')}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 handleSearch();
               }}
             >
               <FaMagnifyingGlass />
             </button>
-          </div>
+          </form>
 
           <div className={cx('weather')}>
             <div className={cx('weather-part')}>
-              <img className={cx('weather-icon')} src={'https:' + data?.current.icon} alt=''/>
+              <img className={cx('weather-icon')} src={data?.current.icon} alt=''/>
               <div className={cx('weather-temp')}>
                 <h1 className={cx('weather-temp-degree')}>{data?.current.temp || '--'}</h1>
                 <h4 className={cx('weather-temp-unit')}>C</h4>
@@ -105,7 +116,7 @@ function MainPage() {
               <span className={cx('seperate')}></span>
               <h3 className={cx('weather-date')}>{data?.current.date}</h3>
               <h4 className={cx('weather-text')}>Temperature: {data?.current.temp || '--'}&deg;C</h4>
-              <h4 className={cx('weather-text')}>Wind: {data?.current.wind || '--'} mph</h4>
+              <h4 className={cx('weather-text')}>Wind: {data?.current.wind || '--'} M/S</h4>
               <h4 className={cx('weather-text')}>Humidity: {data?.current.humid || '--'}%</h4>
               <h1 className={cx('weather-location')}>{data?.name || 'Error fetching data from backend'}</h1>
             </div>
@@ -143,7 +154,7 @@ function MainPage() {
                     <li key={index} className={cx('history-item')}>
                       <div className={cx('history-item-content')}>
                         <div className={cx('history-item-heading')}>
-                          <img className={cx('history-item-img')} src={'https://' + item?.current?.icon} alt='' />
+                          <img className={cx('history-item-img')} src={item?.current?.icon} alt='' />
                           <h4 className={cx('history-item-name')}>{item?.name}</h4>
                         </div>
                         <h4 className={cx('history-item-text')}>{item?.current?.condition}, {item?.current?.temp}&deg;C</h4>
@@ -169,8 +180,8 @@ function MainPage() {
         </div>
 
         <div className={cx('options')}>
-          <FourDayInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
-          <EmailSubScription isLoading={isLoading} setIsLoading={setIsLoading} />
+          <FutureInfo data={data?.nextDays} showMore={showMore} setShowMore={setShowMore}/>
+          <EmailSubScription setIsLoading={setIsLoading} />
         </div>
       </div>
     </div>

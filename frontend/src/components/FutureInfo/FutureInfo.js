@@ -1,18 +1,18 @@
 import classNames from "classnames/bind";
-import styles from './FourDayInfo.module.scss';
+import styles from './FutureInfo.module.scss';
 
 const cx = classNames.bind(styles);
 
-function FourDayInfo({ data, showMore, setShowMore }) {
+function FutureInfo({ data, showMore, setShowMore }) {
 
   return (
     <div className={cx('four-day')}>
-      <h3 className={cx('four-day-title')}>4-Day Forecast</h3>
+      <h3 className={cx('four-day-title')}>3-Day Forecast</h3>
       <ul className={cx('four-day-list')}>
         {
           //Check if data is loaded and display it
           data ?
-          data.filter((item, index) => index < 4).map((data, index) => {
+          data.filter((item, index) => index < 3).map((data, index) => {
             return (
             <li key={index} className={cx('four-day-item')}>
               <div>
@@ -35,7 +35,7 @@ function FourDayInfo({ data, showMore, setShowMore }) {
         (
           <ul className={cx('four-day-list')}>
             {
-              data.filter((item, index) => index >= 4).map((data, index) => {
+              data.filter((item, index) => index >= 3 && index < 6).map((data, index) => {
                 return (
                 <li key={index} className={cx('four-day-item')}>
                   <div>
@@ -72,4 +72,4 @@ function FourDayInfo({ data, showMore, setShowMore }) {
   );
 }
 
-export default FourDayInfo;
+export default FutureInfo;

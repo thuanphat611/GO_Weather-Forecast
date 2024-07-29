@@ -8,7 +8,7 @@ import { postRegisterEmail, postUnsubscribeEmail } from "../../api/weatherApi";
 
 const cx = classNames.bind(styles);
 
-function EmailSubScription({ isLoading, setIsLoading }) {
+function EmailSubScription({ setIsLoading }) {
   const [email, setEmail] = useState('');
   const [isRegister, setIsRegister] = useState(true);
 
@@ -30,6 +30,7 @@ function EmailSubScription({ isLoading, setIsLoading }) {
     }
 
     setIsLoading(true);
+    toast.dismiss();
     let result = {};
     if (isRegister) {
       result = await postRegisterEmail(email);

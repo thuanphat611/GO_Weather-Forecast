@@ -15,7 +15,10 @@ router.get('/get-data', async (req, res) => {
   const result = await getData(location);
   if (result.success) {
     res.status(200).json({...result});
-  } else {
+  } else if (!result.success && result.error === 'Exceeded daily API request limit') {
+    res.status(429).json({...result});
+  }
+   else {
     res.status(400).json({...result});
   }
 });
