@@ -1,5 +1,5 @@
 ## GO Weather Forecast
-![App overview](document/mainpage.png)
+![App overview](document/main_page.jpg)
 ### App functionalities:
 - Search for a city or country and display weather information:
   - Show the weather including temperature, wind speed, humidity, etc., for the present day.
