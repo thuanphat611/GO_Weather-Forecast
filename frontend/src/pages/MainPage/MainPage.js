@@ -11,7 +11,7 @@ import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation
 import FutureInfo from '../../components/FutureInfo/FutureInfo';
 import EmailSubScription from '../../components/EmailSubscription/EmailSubscription';
 import { getWeatherData } from '../../api/weatherApi';
-import { addSearchToHistory, getSearchHistory } from '../../untils/localStorage';
+import { addSearchToHistory, getSearchHistory } from '../../utils/localStorage';
 
 const cx = classNames.bind(styles);
 

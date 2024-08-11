@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from './LoadingAnimation.module.scss';
 
-import loading from '../../assests/loading.gif';
+import loading from '../../assets/loading.gif';
 
 const cx = classNames.bind(styles);
 
