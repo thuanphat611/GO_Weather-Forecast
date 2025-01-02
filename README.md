@@ -11,3 +11,5 @@
 
 ## Deployed Website:
 [https://goweatherforecast.netlify.app/](https://goweatherforecast.netlify.app/)
+
+**Note**: The server might take some time to respond due to free hosting limitations.
